@@ -14,7 +14,8 @@ jobs:
 
       - name: Build and run Docker container
         run: |
-          FRINKIAC_OUTPUT=$(docker run -d mannionjames/frinkiac:latest "are you sure that's safe?" "just refactoring repayments module for the fun of it")
+          FRINKIAC_OUTPUT=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" "just refactoring repayments module for the fun of it")
+          echo "::set-output name=FRINKIAC_OUTPUT::$FRINKIAC_OUTPUT"
 
       - name: Append to PR Description
         run: |

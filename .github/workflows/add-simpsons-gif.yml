@@ -21,15 +21,9 @@ jobs:
       
         run: |
           frinkiac=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" "just refactoring repayments module for the fun of it")
-          echo "Debug local variable: $frinkiac"
-          echo "::set-env name=FRINKIAC_OUT::$frinkiac"
-          echo "Debug job variable: $FRINKIAC_OUT"
-
-      - name: Append to PR Description
-        run: |
           PR_NUMBER=2
           curl -X PATCH \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER" \
-            -d "{\"body\":\"$FRINKIAC_OUT\"}"
+            -d "{\"body\":\"$frinkiac\"}"

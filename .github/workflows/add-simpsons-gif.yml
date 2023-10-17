@@ -20,6 +20,7 @@ jobs:
           echo "search term: $search_term"
           frinkiac=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" "$search_term")
           pr_number=$(echo "${{ github.event.comment.html_url }}" | awk -F '/' '{print $(NF-1)}')
+          echo "comment url": "${{ github.event.comment.html_url }}"
           echo "pr number: $pr_number"
           curl -X PATCH \
             -H "Accept: application/vnd.github.v3+json" \

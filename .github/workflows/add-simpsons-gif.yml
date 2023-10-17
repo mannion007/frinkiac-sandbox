@@ -20,10 +20,8 @@ jobs:
       - name: Append to PR Description
         run: |
           PR_NUMBER=2
-          EXISTING_DESCRIPTION=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER" | jq -r .body)
-          APPENDED_DESCRIPTION="What was there before\n\n$frinkiac"
           curl -X PATCH \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER" \
-            -d "{\"body\":\"$APPENDED_DESCRIPTION\"}"
+            -d "{\"body\":\"$frinkiac\"}"

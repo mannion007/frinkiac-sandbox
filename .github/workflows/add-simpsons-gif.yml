@@ -18,7 +18,7 @@ jobs:
         run: |
           search_term=$(echo "${{ github.event.comment.body }}" | sed 's/^\/frinkiac //')
           echo "search term: $search_term"
-          frinkiac=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" $search_term")
+          frinkiac=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" "$search_term")
           PR_NUMBER=2
           curl -X PATCH \
             -H "Accept: application/vnd.github.v3+json" \

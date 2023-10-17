@@ -19,7 +19,7 @@ jobs:
           search_term=$(echo "${{ github.event.comment.body }}" | sed 's/^\/frinkiac //')
           echo "search term: $search_term"
           frinkiac=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" "$search_term")
-          pr_number=$(echo "${{ github.event.comment.html_url }}" | awk -F'/' '{print $7}')
+          pr_number=$(echo "${{ github.event.comment.html_url }}" | sed 's/.*\/pull\/\([0-9]\+\)#.*/\1/')
           echo "comment url": "${{ github.event.comment.html_url }}"
           echo "pr number: $pr_number"
           curl -X PATCH \

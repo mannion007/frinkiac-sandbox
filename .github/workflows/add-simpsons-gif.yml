@@ -4,18 +4,26 @@ on:
       - opened
       - reopened
 
+
+
+
 jobs:
   run-docker-container:
     runs-on: ubuntu-latest
+    env:
+      FRINKIAC_OUT: "![frinkiac](https://frinkiac.com/meme/S02E03/986988.jpg?lines=didn%27t%20find%20anything)"
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build and run Docker container
+      - name: Run Frinkiac
+      
         run: |
           frinkiac=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" "just refactoring repayments module for the fun of it")
-          echo "Debug: $frinkiac"
+          echo "Debug local variable: $frinkiac"
+          echo "::set-env name=FRINKIAC_OUT::$frinkiac"
+          echo "Debug job variable: $FRINKIAC_OUT"
 
       - name: Append to PR Description
         run: |
@@ -24,4 +32,4 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER" \
-            -d "{\"body\":\"![image](https://frinkiac.com/meme/S10E01/237820.jpg?lines=even+more+cleaning+just+so+much+cleaning+it+is+insane)\"}"
+            -d "{\"body\":\"$FRINKIAC_OUT\"}"

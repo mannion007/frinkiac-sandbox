@@ -19,11 +19,11 @@ jobs:
           search_term=$(echo "${{ github.event.comment.body }}" | sed 's/^\/frinkiac //')
           echo "search term: $search_term"
           frinkiac=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" "$search_term")
-          pr_number=$(echo "${{ github.event.comment.html_url }}" | awk -F '/' '{print $(NF-1)}')
+          pr_number=$(echo "${{ github.event.comment.html_url }}" | awk -F'/' '{print $7}')
           echo "comment url": "${{ github.event.comment.html_url }}"
           echo "pr number: $pr_number"
           curl -X PATCH \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/$pr_number" \
             -d "{\"body\":\"$frinkiac\"}"

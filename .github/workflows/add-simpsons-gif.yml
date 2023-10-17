@@ -24,4 +24,4 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER" \
-            -d "{\"body\":\"$wat\"}"
+            -d "{\"body\":\"![image](https://frinkiac.com/meme/S10E01/237820.jpg?lines=even+more+cleaning+just+so+much+cleaning+it+is+insane)\"}"

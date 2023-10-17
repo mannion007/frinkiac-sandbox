@@ -16,8 +16,8 @@ jobs:
 
       - name: Run Frinkiac
         run: |
-          comment_content=$(echo "$comment_body" | sed 's/^\/frinkiac //')
-          echo "comment_content: $comment_content"
+          search_term=$(echo "${{ github.event.comment.body }}" | sed 's/^\/frinkiac //')
+          echo "search term: $search_term"
           frinkiac=$(docker run mannionjames/frinkiac:latest "are you sure that's safe?" "just refactoring repayments module for the fun of it")
           PR_NUMBER=2
           curl -X PATCH \
